@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <list>
-#include <vector>
 
 void DrawStringList(std::list<const char*> list) 
 {
