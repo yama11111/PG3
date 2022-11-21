@@ -15,6 +15,7 @@ private:
 	Scene next_ = Scene::NewPlay;
 public:
 	void Change(const Scene& scene);
+	void DrawCurrent();
 	void DrawNext();
 public:
 	static SceneManager* GetInstance();

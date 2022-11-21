@@ -21,21 +21,40 @@ void SceneManager::Change(const Scene& scene)
 	}
 }
 
+void SceneManager::DrawCurrent()
+{
+	switch (current_)
+	{
+	case Scene::Title:
+		printf_s("CurrentScene : Title\n");
+		break;
+	case Scene::NewPlay:
+		printf_s("CurrentScene : NewPlay\n");
+		break;
+	case Scene::GamePlay:
+		printf_s("CurrentScene : GamePlay\n");
+		break;
+	case Scene::GameClear:
+		printf_s("CurrentScene : GameClear\n");
+		break;
+	}
+}
+
 void SceneManager::DrawNext()
 {
 	switch (next_)
 	{
 	case Scene::Title:
-		printf_s("NextScene : TItle\n");
+		printf_s("NextScene    : TItle\n");
 		break;
 	case Scene::NewPlay:
-		printf_s("NextScene : NewPlay\n");
+		printf_s("NextScene    : NewPlay\n");
 		break;
 	case Scene::GamePlay:
-		printf_s("NextScene : GamePlay\n");
+		printf_s("NextScene    : GamePlay\n");
 		break;
 	case Scene::GameClear:
-		printf_s("NextScene : GameClear\n");
+		printf_s("NextScene    : GameClear\n");
 		break;
 	}
 }
