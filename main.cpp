@@ -1,46 +1,21 @@
 #include <stdio.h>
 #include <cstdlib>
-#include "SceneManager.h"
+#include "ListManager.h"
 
 int main()
 {
-	SceneManager* sceneMan = SceneManager::GetInstance();
-	int receipt = 0;
+	ListManager listMan_;
+	listMan_.Initialize(); // ‰Šú‰»
 
-	for (size_t i = 0; i < 3; i++)
+	while (true)
 	{
-		printf_s("”š‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢\n");
-		printf_s("1 : Title, 2 : NewGame, 3 : GamePlay, 4 : GameClear\n");
-		scanf_s("%d", &receipt);
+		listMan_.Update(); // XV
+		listMan_.Draw();   // •`‰æ
 
-		switch (receipt)
-		{
-		case 1:
-			sceneMan->Change(Scene::Title);
-			sceneMan->DrawCurrent();
-			sceneMan->DrawNext();
-			break;
-		case 2:
-			sceneMan->Change(Scene::NewPlay);
-			sceneMan->DrawCurrent();
-			sceneMan->DrawNext();
-			break;
-		case 3:
-			sceneMan->Change(Scene::GamePlay);
-			sceneMan->DrawCurrent();
-			sceneMan->DrawNext();
-			break;
-		case 4:
-			sceneMan->Change(Scene::GameClear);
-			sceneMan->DrawCurrent();
-			sceneMan->DrawNext();
-			break;
-		default:
-			break;
-		}
+		// I—¹ˆ—
+		if (listMan_.isEnd()) { break; }
 	}
 
 	system("PAUSE");
-
 	return 0;
 }
