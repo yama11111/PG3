@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <cstdlib>
 #include "BookLoanHistory.h"
 
 int main()
@@ -11,5 +12,6 @@ int main()
 
 	history.Draw();
 
+	system("PAUSE");
 	return 0;
 }
