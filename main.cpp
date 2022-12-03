@@ -3,17 +3,13 @@
 
 int main()
 {
-	BookLoanHistory* historys = new BookLoanHistory;
+	BookLoanHistory history;
+	history.Initialize();
 
-	BookLoanHistory history, history2;
-	history.Initialize("山田太郎", 20221031, 20221107);
-	history2.Initialize("田中武", 20221111, 20221118);
+	history.PushBack({ "山田太郎", 20221031, 20221107 });
+	history.PushBack({ "田中武", 20221111, 20221118 });
 
-	historys->PushBack(history);
-	historys->PushBack(history2);
+	history.Draw();
 
-	historys->Draw();
-
-	delete historys;
 	return 0;
 }

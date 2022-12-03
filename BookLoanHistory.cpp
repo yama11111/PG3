@@ -1,44 +1,77 @@
 #include "BookLoanHistory.h"
-#include <string>
+#include <stdio.h>
 
-void BookLoanHistory::Initialize(const char* name, unsigned int borrowDay, unsigned int returnDay)
+void BookLoanHistory::Initialize()
 {
-	strcpy_s(name_, 16, name);
-	borrowDay_ = borrowDay;
-	returnDay_ = returnDay;
+	Clear();
+
 }
 
-void BookLoanHistory::PushBack(const BookLoanHistory& next)
+void BookLoanHistory::PushBack(const Status& state)
 {
 	// 挿入するセル
-	BookLoanHistory* newCell = new BookLoanHistory;
-	newCell->Initialize(next.name_, next.borrowDay_, next.returnDay_);
+	Cell* newCell = new Cell();
+	newCell->state_ = state;
 
-	// 最後尾のポインタ
-	if (next_ != nullptr)
+	// 先頭が nullptr なら そのまま挿入
+	if (cells_ == nullptr)
 	{
-		if (next_->next_ != nullptr)
-		{
+		cells_ = newCell;
+		return;
+	}
 
-		}
-		else
-		{
-			next_->next_ = newCell;
-		}
-	}
-	else
+	// セルの終端まで
+	Cell* current = cells_;
+	while (true)
 	{
-		next_ = newCell;
+		// 次が終端なら
+		if (current->next_ == nullptr)
+		{
+			current->next_ = newCell;
+			break;
+		}
+		// 次のセルへ
+		current = current->next_;
 	}
+
+	size_++;
+}
+
+void BookLoanHistory::Clear()
+{
+	if (cells_ == nullptr) { return; }
+
+	// セルの終端まで削除
+	Cell* current = cells_;
+	while (true)
+	{
+		if (current == nullptr) { break; }
+		Cell* del = current;
+		current = current->next_;
+		delete del;
+	}
+
+	size_ = 0;
 }
 
 void BookLoanHistory::Draw()
 {
+	DrawCell(cells_);
+}
+
+void BookLoanHistory::DrawCell(Cell* cell)
+{
 	printf("--------------------\n");
-	printf("氏名 : %s\n", name_);
-	printf("貸出日 : %d\n", borrowDay_);
-	printf("返却日 : %d\n", returnDay_);
+	printf("氏名   : %s\n", cell->state_.name_);
+	printf("貸出日 : %d\n", cell->state_.borrowDay_);
+	printf("返却日 : %d\n", cell->state_.returnDay_);
 	printf("--------------------\n");
 
-	if (next_) { next_->Draw(); }
+	// 次のセルが nullptr じゃないならもう一度描画
+	if (cell->next_) { DrawCell(cell->next_); }
+}
+
+BookLoanHistory::~BookLoanHistory()
+{
+	Clear();
 }
