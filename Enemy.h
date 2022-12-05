@@ -2,13 +2,24 @@
 class Enemy
 {
 private:
-	int hp_ = 10;
-	static bool isDeath_;
+	enum class Phase 
+	{
+		AttackP,
+		ShotP,
+		EscapeP,
+	};
+private:
+	Phase phase_ = Phase::AttackP;
 public:
 	void Initialize();
 	void Update();
+	void ChangePhase();
 	void Draw();
-	void Hit(const int damage) { hp_ -= damage; }
-	static bool IsDeath() { return isDeath_; }
+private:
+	void Attack(); // ‹ßÚ
+	void Shot();   // ËŒ‚
+	void Escape(); // —£’E
+private:
+	static void (Enemy::* pActTable_[])();
 };
 

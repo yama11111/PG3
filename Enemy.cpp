@@ -1,26 +1,71 @@
 #include "Enemy.h"
 #include <stdio.h>
 
-bool Enemy::isDeath_ = false;
-
 void Enemy::Initialize()
 {
-	hp_ = 10;
+	phase_ = Phase::AttackP;
 }
 
 void Enemy::Update()
 {
-	if (hp_ <= 0)
+	// ä÷êîåƒÇ—èoÇµ
+	size_t index = static_cast<size_t>(phase_);
+	(this->*pActTable_[index])();
+}
+
+void Enemy::ChangePhase()
+{
+	// çsìÆïœâª
+	switch (phase_)
 	{
-		isDeath_ = true;
-		hp_ = 0;
+	case Phase::AttackP:
+		phase_ = Phase::ShotP;
+		break;
+	case Phase::ShotP:
+		phase_ = Phase::EscapeP;
+		break;
+	case Phase::EscapeP:
+		phase_ = Phase::AttackP;
+		break;
 	}
 }
 
 void Enemy::Draw()
 {
-	if (isDeath_) { return; }
 	printf("------------\n");
-	printf("HP : %d\n", hp_);
+
+	switch (phase_)
+	{
+	case Phase::AttackP:
+	printf("Phase : ãﬂê⁄\n");
+		break;
+	case Phase::ShotP:
+	printf("Phase : éÀåÇ\n");
+		break;
+	case Phase::EscapeP:
+	printf("Phase : ó£íE\n");
+		break;
+	}
+
 	printf("------------\n");
 }
+
+void Enemy::Attack()
+{
+	phase_ = Phase::AttackP;
+}
+void Enemy::Shot()
+{
+	phase_ = Phase::ShotP;
+}
+void Enemy::Escape()
+{
+	phase_ = Phase::EscapeP;
+}
+
+void (Enemy::* Enemy::pActTable_[])() =
+{
+	&Enemy::Attack,
+	&Enemy::Shot,
+	&Enemy::Escape,
+};

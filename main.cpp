@@ -17,26 +17,27 @@ int main()
 
 		for (int i = 0; i < EnemyNum; i++)
 		{
-			// 敵がいないなら 更新+描画 しない
-			if (Enemy::IsDeath()) { break; }
-
+			// 更新+描画
 			enemys[i].Update();
 			printf("Enemy : %d\n", i);
 			enemys[i].Draw();
 		}
 
 		printf("------------------\n");
-		printf("1 : 攻撃する\n");
+		printf("1 : 行動変化\n");
 		printf("2 : 終わる\n");
 
 		int receiver = 0;
 		scanf_s("%d", &receiver);
 
-		if (receiver == 1) // 攻撃
+		if (receiver == 1) // 行動変化
 		{
-			enemys[0].Hit(2);
+			for (int i = 0; i < EnemyNum; i++)
+			{
+				enemys[i].ChangePhase();
+			}
 		}
-		else if (receiver == 2) // ループを抜ける
+		if (receiver == 2) // ループを抜ける
 		{
 			break;
 		}
