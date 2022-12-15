@@ -1,24 +1,24 @@
 #include <stdio.h>
 #include <cstdlib>
-#include "MyMath.h"
+#include "Seasoning.h"
 
 int main()
 {
-	MyMath<int, int>		mathIntAndInt;
-	MyMath<float, float>	mathFloatAndFloat;
-	MyMath<double, double>	mathDoubleAndDouble;
+	Seasoning* seasonings[3]{};
 
-	MyMath<int, float>		mathIntAndFloat;
-	MyMath<float, double>	mathFloatAndDouble;
-	MyMath<double, int>		mathDoubleAndInt;
+	seasonings[0] = new Salt();
+	seasonings[1] = new Pepper();
+	seasonings[2] = new Sugar();
 
-	printf("compare int    and int    : %i\n", mathIntAndInt.Min(5, 4));
-	printf("compare float  and float  : %f\n", mathFloatAndFloat.Min(3.3f, 4.7f));
-	printf("compare double and double : %lf\n", mathDoubleAndDouble.Min(9.1, 2.5));
+	for (size_t i = 0; i < 3; i++)
+	{
+		seasonings[i]->DrawTaste();
+	}
 
-	printf("compare int    and float  : %i\n", mathIntAndFloat.Min(4, 1.2f));
-	printf("compare float  and double : %f\n", mathFloatAndDouble.Min(6.3f, 5.5));
-	printf("compare double and int    : %lf\n", mathDoubleAndInt.Min(7.7, 4));
+	for (size_t i = 0; i < 3; i++)
+	{
+		delete seasonings[i];
+	}
 
 	system("PAUSE");
 	return 0;

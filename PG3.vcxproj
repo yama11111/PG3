@@ -140,10 +140,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MyMath.cpp" />
+    <ClCompile Include="Seasoning.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MyMath.h" />
+    <ClInclude Include="Seasoning.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
