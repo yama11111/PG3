@@ -1,23 +1,25 @@
 #include <stdio.h>
 #include <cstdlib>
-#include "Seasoning.h"
+#include "Rectangle.h"
+#include "Circle.h"
 
 int main()
 {
-	Seasoning* seasonings[3]{};
+	IShape* shapes[2]{};
 
-	seasonings[0] = new Salt();
-	seasonings[1] = new Pepper();
-	seasonings[2] = new Sugar();
+	shapes[0] = new Circle(3.5f);
+	shapes[1] = new Rectangle(2.0f, 4.5f);
 
-	for (size_t i = 0; i < 3; i++)
+	for (size_t i = 0; i < 2; i++)
 	{
-		seasonings[i]->DrawTaste();
+		printf("------------------------\n");
+		shapes[i]->draw();
+		printf("------------------------\n");
 	}
 
-	for (size_t i = 0; i < 3; i++)
+	for (size_t i = 0; i < 2; i++)
 	{
-		delete seasonings[i];
+		delete shapes[i];
 	}
 
 	system("PAUSE");
