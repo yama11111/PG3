@@ -1,26 +1,53 @@
 #include <stdio.h>
 #include <cstdlib>
-#include "Rectangle.h"
-#include "Circle.h"
+#include "Scene.h"
 
 int main()
 {
-	IShape* shapes[2]{};
+	IScene* scene = nullptr;
+	scene = new TitleScene();
 
-	shapes[0] = new Circle(3.5f);
-	shapes[1] = new Rectangle(2.0f, 4.5f);
+	bool isEnd = false;
 
-	for (size_t i = 0; i < 2; i++)
+	while (true)
 	{
-		printf("------------------------\n");
-		shapes[i]->draw();
-		printf("------------------------\n");
+		scene->Update();
+		scene->Draw();
+
+
+		// ƒV[ƒ“Ø‚è‘Ö‚¦
+		if (scene->GetIsInput()) 
+		{
+			int num = scene->GetInputNum();
+			
+			switch (num)
+			{
+			case 0:
+				delete scene;
+				scene = new TitleScene();
+				break;
+			case 1:
+				delete scene;
+				scene = new GameScene();
+				break;
+			case 2:
+				delete scene;
+				scene = new GameOverScene();
+				break;
+			case 3:
+				delete scene;
+				scene = new ClearScene();
+				break;
+			case 9:
+				isEnd = true;
+				break;
+			}
+		}
+
+		if (isEnd) { break; }
 	}
 
-	for (size_t i = 0; i < 2; i++)
-	{
-		delete shapes[i];
-	}
+	delete scene;
 
 	system("PAUSE");
 	return 0;
